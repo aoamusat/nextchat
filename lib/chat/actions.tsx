@@ -9,6 +9,9 @@ import {
   createStreamableValue
 } from 'ai/rsc'
 import OpenAI from 'openai'
+import { HfInference } from '@huggingface/inference'
+import { HuggingFaceStream, StreamingTextResponse } from 'ai'
+import { experimental_buildOpenAssistantPrompt } from 'ai/prompts'
 
 import {
   spinner,
@@ -39,6 +42,8 @@ import { auth } from '@/auth'
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY || ''
 })
+
+const huggingface = new HfInference(process.env.HUGGINGFACE_API_KEY)
 
 async function confirmPurchase(symbol: string, price: number, amount: number) {
   'use server'
